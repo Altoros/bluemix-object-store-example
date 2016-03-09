@@ -1,0 +1,16 @@
+<h1>Upload Your File</h1>
+
+<form method="post" enctype="multipart/form-data" action="/">
+  <fieldset>
+    <select>
+      <option value="music">Music</option>
+      <option value="images">Images</option>
+      <option value="docs">Documents</option>
+    </select>
+
+    <input name="file" type="file">
+    <br /><br />
+    <button type="submit">Upload</button>
+  </fieldset>
+</form>
+
