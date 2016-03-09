@@ -71,13 +71,15 @@ Now let's start creating the basic files for our app, we will use
 cuba as in our previous [post]()
 need 4 files
 
+```shell
 app.rb
 config.ru
 Gemfile
 views/upload.mote
+```
 
 ```shell
-echo 'require 'cuba'
+echo "require 'cuba'
 require 'mote'
 require 'mote/render'
 
@@ -90,6 +92,38 @@ Cuba.define do
       render 'upload'
     end
   end
-end
-' > app.rb
+end" > app.rb
 ```
+
+```shell
+echo "require './app'
+run Cuba" > config.ru
+```
+
+```shell
+echo "source 'https://rubygems.org'
+gem 'cuba'
+gem 'mote'
+gem 'mote-render'
+gem 'pry'" > Gemfile.rb
+```
+
+```shell
+mkdir views
+```
+```shell
+echo '<h1>Upload Your File</h1>
+
+<form method="post" enctype="multipart/form-data" action="/">
+  <fieldset>
+    <select>
+      <option value="music">Music</option>
+      <option value="images">Images</option>
+      <option value="docs">Documents</option>
+    </select>
+
+    <input name="file" type="file">
+    <br /><br />
+    <button type="submit">Upload</button>
+  </fieldset>
+</form>' > views/upload.mote
