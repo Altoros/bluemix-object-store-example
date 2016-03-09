@@ -78,6 +78,9 @@ Gemfile
 views/upload.mote
 ```
 
+**app.rb**
+
+
 ```shell
 echo "require 'cuba'
 require 'mote'
@@ -95,10 +98,15 @@ Cuba.define do
 end" > app.rb
 ```
 
+**config.ru**
+
 ```shell
 echo "require './app'
 run Cuba" > config.ru
 ```
+
+**Genfile.rb**
+
 
 ```shell
 echo "source 'https://rubygems.org'
@@ -108,9 +116,13 @@ gem 'mote-render'
 gem 'pry'" > Gemfile.rb
 ```
 
+**views/upload.mote**
+
+
 ```shell
 mkdir views
 ```
+
 ```shell
 echo '<h1>Upload Your File</h1>
 
@@ -127,3 +139,19 @@ echo '<h1>Upload Your File</h1>
     <button type="submit">Upload</button>
   </fieldset>
 </form>' > views/upload.mote
+
+We need to install the required gems:
+
+`bundle install`
+
+and the if we run the rackup command and open
+a browser in http://localhost:9292 we should see
+our upload form. But it does nothing, we will
+adda new endpoint to handle the POST request
+after the user clicks in the upload button.
+
+`rackup`
+
+
+
+

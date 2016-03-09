@@ -10,5 +10,9 @@ Cuba.define do
     on get do
       render 'upload'
     end
+
+    on post do
+
+    end
   end
 end
