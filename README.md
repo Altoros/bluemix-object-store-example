@@ -67,3 +67,29 @@ certain category and other for list the files, here I put the mockups:
 
 ![Files List mockup](https://raw.githubusercontent.com/Altoros/bluemix-object-store-example/master/img/file_list_mockup.jpg)
 
+Now let's start creating the basic files for our app, we will use
+cuba as in our previous [post]()
+need 4 files
+
+app.rb
+config.ru
+Gemfile
+views/upload.mote
+
+```shell
+echo 'require 'cuba'
+require 'mote'
+require 'mote/render'
+
+Cuba.plugin Mote::Render
+
+Cuba.define do
+
+  on root do
+    on get do
+      render 'upload'
+    end
+  end
+end
+' > app.rb
+```
