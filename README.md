@@ -144,14 +144,16 @@ We need to install the required gems:
 
 `bundle install`
 
-and the if we run the rackup command and open
+and if we run the `rackup` command and open
 a browser in http://localhost:9292 we should see
 our upload form. But it does nothing, we will
-adda new endpoint to handle the POST request
+add a new endpoint to handle the POST request
 after the user clicks in the upload button.
 
-`rackup`
+We will start interacting with Object Storage,
+let's add the Openstack gem in the Gemfile:
 
+`gem 'openstack', '1.1.2'`
 
 
 
