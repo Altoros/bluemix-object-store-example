@@ -34,7 +34,7 @@ Cuba.define do
     on post do
 
 #      require 'pry' ; binding.pry
-      OStorage.client.put_object(req['file'][:filename], req[:tempfile], req['container'])
+      OStorage.client.put_object(req['file'][:filename], req['file'][:tempfile], req['container'])
       res.redirect '/'
     end
   end

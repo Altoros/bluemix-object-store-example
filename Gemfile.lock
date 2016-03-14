@@ -4,16 +4,24 @@ GEM
     coderay (1.1.1)
     cuba (3.5.0)
       rack (~> 1.6.0)
+    httparty (0.13.7)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
+    json (1.8.3)
     method_source (0.8.2)
+    mime-types (2.99.1)
     mote (1.1.4)
     mote-render (1.1.0)
+    multi_xml (0.5.5)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
     rack (1.6.4)
     slop (3.6.0)
-    swift-storage (0.0.18)
+    swift_client (0.1.2)
+      httparty
+      mime-types (< 3.0)
 
 PLATFORMS
   ruby
@@ -23,7 +31,7 @@ DEPENDENCIES
   mote
   mote-render
   pry
-  swift-storage
+  swift_client
 
 BUNDLED WITH
    1.11.2
