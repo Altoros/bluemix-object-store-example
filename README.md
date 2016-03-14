@@ -150,10 +150,52 @@ our upload form. But it does nothing, we will
 add a new endpoint to handle the POST request
 after the user clicks in the upload button.
 
-We will start interacting with Object Storage,
-let's add the Openstack gem in the Gemfile:
+Then let's add Service Open Storage in Bluemix dashboard
+as descripted in the [documentation](https://console.ng.bluemix.net/docs/services/ObjectStorage/index.html).
 
-`gem 'openstack', '1.1.2'`
+After this you can see the credentials in the bluemix dashboard in
+the object storage service section, with that data we can test the
+service using curl:
+
+
+
+
+```shell
+curl -i \
+-H "Content-Type: application/json" \
+-d '
+{
+  "auth": {
+    "identity": {
+      "methods": ["password"],
+        "password": {
+          "user": {
+            "name": "Admin_username",
+            "domain": { "id": "domain" },
+            "password": "password"
+          }
+        }
+     },
+     "scope": {
+       "project": {
+         "name": "project",
+         "domain": { "id": "domainId" }
+        }
+      }
+     }
+}' \
+https://identity.open.softlayer.com/v3/auth/tokens ; echo
+
+```
+You can find more examples in openstack [documentation](http://developer.openstack.org/api-ref-identity-v3.html)
+
+Now that we have tested the service and we are sure it works, we will start interacting with Object Storage, let's add the Swift Client gem in the Gemfile:
+
+`gem 'swift_client'`
+
+
+https://github.com/mrkamel/swift_client
+
 
 
 
