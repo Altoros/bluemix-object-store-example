@@ -25,19 +25,28 @@ end
 
 Cuba.define do
 
-  on root do
 
-    on get do
+  on get do
+    on root do
       container = req.params['container'] || 'music'
       files = OStorage.client.get_objects(container).parsed_response
 
-      render 'upload', files: files.map{|f| f['name']}
+      render 'upload', container: container, files: files
     end
+  end
 
-    on post do
+  on post do
+    on root do
       OStorage.client.put_object(req['file'][:filename],
                                  req['file'][:tempfile], req['container'])
       res.redirect '/'
     end
+
+    on ':container/:filename' do |container, filename|
+      OStorage.client.delete_object(filename, container)
+      res.redirect '/'
+    end
+
   end
+
 end

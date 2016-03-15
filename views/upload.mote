@@ -19,10 +19,12 @@
   <li role="presentation"><a href="/?container=documents">Documents</a></li>
 </ul>
 
-
 % files.each do |f|
-  <a href="#">
-    {{ f }} <br />
+  <a href="/file/{{ f['hash'] }}">
+    {{ f['name'] }}
   </a>
+  <form method="post" action="{{container}}/{{ f['name'] }}">
+    <button type="submit">Delete</button>
+  </form><br />
 % end
 <br/>
