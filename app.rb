@@ -28,13 +28,15 @@ Cuba.define do
   on root do
 
     on get do
-      render 'upload'
+      container = req.params['container'] || 'music'
+      files = OStorage.client.get_objects(container).parsed_response
+
+      render 'upload', files: files.map{|f| f['name']}
     end
 
     on post do
-
-#      require 'pry' ; binding.pry
-      OStorage.client.put_object(req['file'][:filename], req['file'][:tempfile], req['container'])
+      OStorage.client.put_object(req['file'][:filename],
+                                 req['file'][:tempfile], req['container'])
       res.redirect '/'
     end
   end
