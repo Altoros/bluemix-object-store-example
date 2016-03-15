@@ -197,8 +197,137 @@ Then create the containers in bluemix from dashboard by clicking the 'Add contai
 
 ![add container](https://raw.githubusercontent.com/Altoros/bluemix-object-store-example/master/img/create-containers-screenshot.png)
 
+Upload file endpoint.
+=====================
+First, we have connect to a Swift cluster, let' s add a module for that purpose in
+our app.rb file:
 
+```ruby
+module OStorage
+  def self.client
+    o_storage   = JSON.parse ENV['VCAP_SERVICES']
+    credentials = o_storage['Object-Storage'].first['credentials']
 
+    SwiftClient.new(
+      :auth_url          => "#{ credentials['auth_url'] }/v3",
+      :username          => credentials['username'],
+      :password          => credentials['password'],
+      :domain_id         => credentials['domainId'],
+      :project_name      => credentials['project'],
+      :project_domain_id =>  credentials['domainId'],
+      :storage_url       => "https://dal.objectstorage.open.softlayer.com/v1/AUTH_#{ credentials['projectId'] }"
+)
+  end
+end
+```
+Take atention over two things that I found in this,
+* The auth_url needs to include /v3.
+* The storage_url has to be like the service [documentacion](https://console.ng.bluemix.net/docs/services/ObjectStorage/index.html) describes.
+
+Second, to add a new endpoint to handle the file upload, we have to change a litle bit our previus post route like that:
+
+```ruby
+on post do
+    on root do
+      OStorage.client.put_object(req['file'][:filename],
+                                 req['file'][:tempfile], req['container'])
+      res.redirect '/'
+    end
+  end
+end
+```
+
+with this we are able to upload a file into a directory in the Object Storage,
+but we also want to list the files under a certain directory, lets add
+a new route under get.
+
+```ruby
+require 'cuba'
+require 'mote'
+require 'mote/render'
+require 'swift_client'
+require 'json'
+
+Cuba.plugin Mote::Render
+
+module OStorage
+  def self.client
+    o_storage   = JSON.parse ENV['VCAP_SERVICES']
+    credentials = o_storage['Object-Storage'].first['credentials']
+
+    SwiftClient.new(
+      :auth_url          => "#{ credentials['auth_url'] }/v3",
+      :username          => credentials['username'],
+      :password          => credentials['password'],
+      :domain_id         => credentials['domainId'],
+      :project_name      => credentials['project'],
+      :project_domain_id =>  credentials['domainId'],
+      :storage_url       => "https://dal.objectstorage.open.softlayer.com/v1/AUTH_#{ credentials['projectId'] }"
+)
+  end
+end
+
+Cuba.define do
+  on get do
+    on root do
+      container = req.params['container'] || 'music'
+      files = OStorage.client.get_objects(container).parsed_response
+
+      render 'upload', container: container, files: files
+    end
+  end
+
+  on post do
+    on root do
+      OStorage.client.put_object(req['file'][:filename],
+                                 req['file'][:tempfile], req['container'])
+      res.redirect '/'
+    end
+
+    on ':container/:filename' do |container, filename|
+      OStorage.client.delete_object(filename, container)
+      res.redirect '/'
+    end
+
+  end
+
+end
+```
+
+The upload view is like:
+
+```html
+<h1>Upload Your File</h1>
+<form method="post" enctype="multipart/form-data"
+      action="/" class="form-inline alert alert-info text-center">
+  <label for="container">Container:</label>
+  <select id="container" name="container">
+    <option value="music">Music</option>
+    <option value="images">Images</option>
+    <option value="documents">Documents</option>
+  </select>
+
+  <label for="file">File:</label>
+  <input name="file" type="file" class="form-control" id="file">
+  <button type="submit" class="btn btn-primary">Upload</button>
+</form>
+
+<ul class="nav nav-pills nav-justified">
+  <li role="presentation" class="active"><a href="/?container=music">Music</a></li>
+  <li role="presentation"><a href="/?container=images">Images</a></li>
+  <li role="presentation"><a href="/?container=documents">Documents</a></li>
+</ul>
+
+% files.each do |f|
+  <a href="/file/{{ f['hash'] }}">
+    {{ f['name'] }}
+  </a>
+  <form method="post" action="{{container}}/{{ f['name'] }}">
+    <button type="submit">Delete</button>
+  </form><br />
+% end
+<br/>
+```
 
 
 
