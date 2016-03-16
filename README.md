@@ -327,5 +327,19 @@ The upload view is like:
 <br/>
 ```
 
+Is a good moment to deploy the app into bluemix to see
+if everything is working properly, and if you have not
+push it before you have to associate the object storage
+service to your app.
+
+```cf push object-storage-example```
+
+you can visit [](http://object-store-example.mybluemix.net)
+to check the app, is working  right? :).
+
+![Files List mockup](https://raw.githubusercontent.com/Altoros/bluemix-object-store-example/master/img/screencast.gif)
+
+Conclution:
+===========
 
 
