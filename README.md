@@ -341,5 +341,10 @@ to check the app, is working  right? :).
 
 Conclution:
 ===========
-
+My toguhts about this are that the service works well, and everything
+went as I expected and create the service for our app was fast
+since bluemix create the credentials and links the service for us,
+my onlyu concern is that the version of the swift API should be
+descripted in the bluemix service documentation, you can figure out this
+by doing `curl https://identity.open.softlayer.com/`.
 
