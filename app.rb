@@ -23,8 +23,11 @@ module OStorage
   end
 end
 
-Cuba.define do
+Cuba.use Rack::Static,
+         urls: %w[/js /css /img],
+         root: File.expand_path("./public", __dir__)
 
+Cuba.define do
 
   on get do
     on root do

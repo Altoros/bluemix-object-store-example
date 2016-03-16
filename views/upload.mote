@@ -1,6 +1,22 @@
-<h1>Upload Your File</h1>
+<div class="header">
+  <h1>Upload Your File</h1>
+  <h2>to IBM Object Storage</h2>
+</div>
+
+<div class="content">
+
+<div id="menu" class="pure-menu">
+  <a href="#" class="pure-menu-heading pure-menu-link">Directories:</a>
+  <ul class="pure-menu-list">
+    <li class="pure-menu-item"><a href="/?container=music" class="pure-menu-link">Music</a></li>
+    <li class="pure-menu-item"><a href="/?container=images" class="pure-menu-link">Images</a></li>
+    <li class="pure-menu-item"><a href="/?container=documents" class="pure-menu-link">Documents</a></li>
+  </ul>
+</div>
+
 <form method="post" enctype="multipart/form-data"
-      action="/" class="form-inline alert alert-info text-center">
+      action="/" class="pure-form">
+ <fieldset>
   <label for="container">Container:</label>
   <select id="container" name="container">
     <option value="music">Music</option>
@@ -9,22 +25,40 @@
   </select>
 
   <label for="file">File:</label>
-  <input name="file" type="file" class="form-control" id="file">
-  <button type="submit" class="btn btn-primary">Upload</button>
+  <input name="file" type="file" placeholder="File">
+  <button type="submit" class="pure-button pure-button-primary">Upload</button>
+ </fieldset>
 </form>
 
-<ul class="nav nav-pills nav-justified">
-  <li role="presentation" class="active"><a href="/?container=music">Music</a></li>
-  <li role="presentation"><a href="/?container=images">Images</a></li>
-  <li role="presentation"><a href="/?container=documents">Documents</a></li>
-</ul>
+<table class="pure-table pure-table-horizontal">
+  <thead>
+    <tr>
+      <th>Filename</th>
+      <th>Uploaded Date</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
 
 % files.each do |f|
-  <a href="/file/{{ f['hash'] }}">
-    {{ f['name'] }}
-  </a>
-  <form method="post" action="{{container}}/{{ f['name'] }}">
-    <button type="submit">Delete</button>
-  </form><br />
+<tr>
+  <td>
+    <a href="/file/{{ f['hash'] }}">
+      {{ f['name'] }}
+    </a>
+  </td>
+  <td>
+  </td>
+  <td>
+    <form method="post" action="{{container}}/{{ f['name'] }}">
+    <button type="submit" class="pure-button">Delete</button>
+    </form>
+  </td>
+</tr>
 % end
+
+</tbody>
+</table>
 <br/>
+
+</div>
