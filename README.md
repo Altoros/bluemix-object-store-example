@@ -1,8 +1,8 @@
 Application to test the Bluemix integration with IBM alternative solution for AWS S3: IBM Object Storage.
 =========================================================================================================
 
-Uplading files to object storage
-================================
+Uploading files to object storage
+=================================
 
 When you deploy your app into a PaaS and the app
 should allow the user to upload files into the server
@@ -20,7 +20,7 @@ https://console.ng.bluemix.net/docs/services/ObjectStorage/index.html
 For this post the app that we will develop is very simple,
 is a form where the user can upload any binary file, a document, an image,
 etc. under a "directory" (a container) and then list the documents
-under certaint directory. There will be 3 existing directories:
+under certain directory. There will be 3 existing directories:
 "Music", "Images", "Docs".
 
 IBM Object storage overview.
@@ -326,7 +326,6 @@ The upload view is like:
 % end
 <br/>
 ```
-
 Is a good moment to deploy the app into bluemix to see
 if everything is working properly, and if you have not
 push it before you have to associate the object storage
@@ -341,10 +340,11 @@ to check the app, is working  right? :).
 
 Conclution:
 ===========
-My toguhts about this are that the service works well, and everything
+My toughts about this are that the service works well, and everything
 went as I expected and create the service for our app was fast
 since bluemix create the credentials and links the service for us,
-my onlyu concern is that the version of the swift API should be
-descripted in the bluemix service documentation, you can figure out this
+my only concern is that the version of the swift API should be
+descripted in the bluemix service documentation so that you know
+what version of the swift api doc read. Anyway you can figure out this
 by doing `curl https://identity.open.softlayer.com/`.
 
