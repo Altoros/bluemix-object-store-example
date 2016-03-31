@@ -6,7 +6,7 @@
 <div class="content">
 
 <div id="menu" class="pure-menu">
-  <a href="#" class="pure-menu-heading pure-menu-link">Directories:</a>
+  <a href="#" class="pure-menu-heading pure-menu-link">Categories:</a>
   <ul class="pure-menu-list">
     <li class="pure-menu-item"><a href="/?container=music" class="pure-menu-link">Music</a></li>
     <li class="pure-menu-item"><a href="/?container=images" class="pure-menu-link">Images</a></li>
@@ -17,7 +17,7 @@
 <form method="post" enctype="multipart/form-data"
       action="/" class="pure-form">
  <fieldset>
-  <label for="container">Container:</label>
+  <label for="container">Category:</label>
   <select id="container" name="container">
     <option value="music">Music</option>
     <option value="images">Images</option>
